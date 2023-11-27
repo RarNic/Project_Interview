@@ -1,4 +1,4 @@
-package com.example.INGProject.model;
+package com.example.INGProject.repository.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Product {
+public class ProductEntity {
 
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", columnDefinition = "VARCHAR(255)")
