@@ -22,7 +22,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
     @Modifying
     @Transactional
     @Query("UPDATE Product p SET p.price = :Price WHERE p.name = :name")
-    Integer updatePriceByName(String name, Integer price);
+    ProductEntity updatePriceByName(String name, Integer price);
 
     @Transactional
     void deleteByName(String name);

@@ -24,7 +24,7 @@ public interface ProductMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "price", target = "price")
     @Mapping(source = "lot", target = "lot")
-    ProductModel ProductEntityToProductModel(ProductEntity product);
+    ProductModel productEntityToProductModel(ProductEntity product);
 
     @Mapping(source = "name", target = "name")
     @Mapping(source = "price", target = "price")
