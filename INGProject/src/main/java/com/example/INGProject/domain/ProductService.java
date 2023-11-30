@@ -1,10 +1,10 @@
 package com.example.INGProject.domain;
 
 import com.example.INGProject.dao.ProductDAO;
-import com.example.INGProject.domain.exception.NoProductsExistsException;
-import com.example.INGProject.domain.exception.ProductAlreadyExistsException;
-import com.example.INGProject.domain.exception.ProductNotFoundException;
-import com.example.INGProject.domain.exception.ProductIdDoesNotExistsException;
+import com.example.INGProject.domain.exception.NoProductsOrUsersExistsException;
+import com.example.INGProject.domain.exception.ProductOrUserAlreadyExistsException;
+import com.example.INGProject.domain.exception.ProductOrUserNotFoundException;
+import com.example.INGProject.domain.exception.ProductIdOrUserIdDoesNotExistsException;
 import com.example.INGProject.domain.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class ProductService {
         List<ProductModel> list = productDAO.findAll();
         boolean exist = list.stream().anyMatch(elem -> elem.getName().equals(productModel.getName()));
         if(exist){
-            throw new ProductAlreadyExistsException();
+            throw new ProductOrUserAlreadyExistsException();
         }
         return productDAO.save(productModel);
     }
@@ -30,7 +30,7 @@ public class ProductService {
     public List<ProductModel> getAll(){
         List<ProductModel> products = productDAO.findAll();
         if(products.isEmpty()){
-            throw new NoProductsExistsException();
+            throw new NoProductsOrUsersExistsException();
         }
         return products;
     }
@@ -38,7 +38,7 @@ public class ProductService {
     public ProductModel getByName(String name){
         ProductModel productModel = productDAO.findByName(name);
         if(productModel == null){
-            throw new ProductNotFoundException();
+            throw new ProductOrUserNotFoundException();
         }
         return productModel;
     }
@@ -46,14 +46,14 @@ public class ProductService {
     public ProductModel getById(UUID id){
         ProductModel productModel = productDAO.findById(id);
         if(productModel == null){
-            throw new ProductIdDoesNotExistsException();
+            throw new ProductIdOrUserIdDoesNotExistsException();
         }
         return productModel;
     }
     public ProductModel updateProduct(String name, Integer price){
         ProductModel productModel = productDAO.findByName(name);
         if(productModel == null){
-            throw new ProductNotFoundException();
+            throw new ProductOrUserNotFoundException();
         }
         productModel = productDAO.updatePriceByName(name, price);
         return productModel;
@@ -61,7 +61,7 @@ public class ProductService {
 
     public void delete(UUID id) {
         if(productDAO.findById(id) == null){
-            throw new ProductIdDoesNotExistsException();
+            throw new ProductIdOrUserIdDoesNotExistsException();
         }
         productDAO.deleteProduct(id);
     }

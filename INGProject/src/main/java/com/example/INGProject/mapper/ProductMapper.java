@@ -11,6 +11,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = UUIDConverter.class)
 public interface ProductMapper {
+
     @Mapping(source = "name", target = "name")
     @Mapping(source = "price" , target = "price")
     @Mapping(source = "lot", target = "lot")
