@@ -2,6 +2,7 @@ package com.example.INGProject.mapper;
 
 import com.example.INGProject.controller.dto.CreateProductReqDTO;
 import com.example.INGProject.controller.dto.CreateProductResDTO;
+import com.example.INGProject.controller.dto.GetProductResDTO;
 import com.example.INGProject.converter.UUIDConverter;
 import com.example.INGProject.domain.model.ProductModel;
 import com.example.INGProject.repository.entity.ProductEntity;
@@ -30,5 +31,10 @@ public interface ProductMapper {
     @Mapping(source = "price", target = "price")
     @Mapping(source = "lot", target = "lot")
     ProductEntity productModelToProductEntity(ProductModel productModel);
+
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "price", target = "price")
+    @Mapping(source = "lot", target = "lot")
+    GetProductResDTO productModelToGetProductResDTO(ProductModel productModel);
 
 }

@@ -1,6 +1,7 @@
 package com.example.INGProject.domain;
 
 import com.example.INGProject.dao.ProductDAO;
+import com.example.INGProject.domain.exception.NoProductsExistsException;
 import com.example.INGProject.domain.exception.ProductAlreadyExistsException;
 import com.example.INGProject.domain.exception.ProductNotFoundException;
 import com.example.INGProject.domain.exception.ProductIdDoesNotExistsException;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Service
 public class ProductService {
+
     @Autowired
     private ProductDAO productDAO;
 
@@ -25,11 +27,35 @@ public class ProductService {
         return productDAO.save(productModel);
     }
 
-    public ProductModel updateProduct(String name, Integer price){
-        if(productDAO.findByName(name) == null){
+    public List<ProductModel> getAll(){
+        List<ProductModel> products = productDAO.findAll();
+        if(products.isEmpty()){
+            throw new NoProductsExistsException();
+        }
+        return products;
+    }
+
+    public ProductModel getByName(String name){
+        ProductModel productModel = productDAO.findByName(name);
+        if(productModel == null){
             throw new ProductNotFoundException();
         }
-        ProductModel productModel = productDAO.updatePriceByName(name, price);
+        return productModel;
+    }
+
+    public ProductModel getById(UUID id){
+        ProductModel productModel = productDAO.findById(id);
+        if(productModel == null){
+            throw new ProductIdDoesNotExistsException();
+        }
+        return productModel;
+    }
+    public ProductModel updateProduct(String name, Integer price){
+        ProductModel productModel = productDAO.findByName(name);
+        if(productModel == null){
+            throw new ProductNotFoundException();
+        }
+        productModel = productDAO.updatePriceByName(name, price);
         return productModel;
     }
 
