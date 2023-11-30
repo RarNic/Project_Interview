@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequestMapping("api/v1/products")
 public class ProductController {
 
-    @Autowired
+    @Autowired(required = true)
     private ProductMapper productMapper;
 
     @Autowired

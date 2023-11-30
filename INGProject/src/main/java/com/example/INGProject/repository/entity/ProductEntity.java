@@ -1,9 +1,6 @@
 package com.example.INGProject.repository.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -18,6 +15,7 @@ import java.util.UUID;
 @Entity
 public class ProductEntity {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", columnDefinition = "VARCHAR(255)")
     @JdbcTypeCode((Types.VARCHAR))
