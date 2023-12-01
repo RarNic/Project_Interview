@@ -12,13 +12,11 @@ public interface UserMapper {
 
     @Mapping(source = "username", target = "username")
     @Mapping(source = "email", target = "email")
-    @Mapping(source = "role", target = "role")
     UserModel userModelToCreateUserReqDTO(CreateUserReqDTO createUserReqDTO);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "email", target = "email")
-    @Mapping(source = "role", target = "role")
     CreateUserResDTO userResDTOToUserModel(UserModel userModel);
 
     UserModel createUserReqDTOToUserModel(CreateUserReqDTO createUserReqDTO);

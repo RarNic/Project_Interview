@@ -9,4 +9,5 @@ public class CreateUserResDTO {
     private String username;
     private String email;
     private Role role;
+
 }

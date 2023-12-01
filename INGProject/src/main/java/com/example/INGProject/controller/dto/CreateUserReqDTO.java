@@ -8,6 +8,5 @@ public class CreateUserReqDTO {
     private String username;
     private String email;
 
-    private Role role;
 
 }
