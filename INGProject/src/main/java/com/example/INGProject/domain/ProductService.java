@@ -6,6 +6,8 @@ import com.example.INGProject.domain.exception.ProductOrUserAlreadyExistsExcepti
 import com.example.INGProject.domain.exception.ProductOrUserNotFoundException;
 import com.example.INGProject.domain.exception.ProductIdOrUserIdDoesNotExistsException;
 import com.example.INGProject.domain.model.ProductModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +20,17 @@ public class ProductService {
     @Autowired
     private ProductDAO productDAO;
 
+    private final Logger logger = LoggerFactory.getLogger(ProductService.class);
+
     public ProductModel create(ProductModel productModel){
         List<ProductModel> list = productDAO.findAll();
         boolean exist = list.stream().anyMatch(elem -> elem.getName().equals(productModel.getName()));
         if(exist){
             throw new ProductOrUserAlreadyExistsException();
         }
-        return productDAO.save(productModel);
+        ProductModel savedProduct = productDAO.save(productModel);
+        logger.info("The add product: {}", savedProduct);
+        return savedProduct;
     }
 
     public List<ProductModel> getAll(){
@@ -32,6 +38,7 @@ public class ProductService {
         if(products.isEmpty()){
             throw new NoProductsOrUsersExistsException();
         }
+        logger.info("The list of products: {}", products);
         return products;
     }
 
@@ -40,6 +47,7 @@ public class ProductService {
         if(productModel == null){
             throw new ProductOrUserNotFoundException();
         }
+        logger.info("This is the product returned: {}", productModel);
         return productModel;
     }
 
@@ -48,6 +56,7 @@ public class ProductService {
         if(productModel == null){
             throw new ProductIdOrUserIdDoesNotExistsException();
         }
+        logger.info("This is the product returned: {}", productModel);
         return productModel;
     }
     public ProductModel updateProduct(String name, Integer price){
@@ -56,6 +65,7 @@ public class ProductService {
             throw new ProductOrUserNotFoundException();
         }
         productModel = productDAO.updatePriceByName(name, price);
+        logger.info("The update product is: {}", productModel);
         return productModel;
     }
 
